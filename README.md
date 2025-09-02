@@ -1,4 +1,5 @@
 🎙️ Personalized AI Voice Assistant Project
+
 💼 Internship at Oizom — Deep Dive Overview
 
 🚀 Introduction
@@ -109,6 +110,25 @@ Experienced collaborative development in a product-oriented environment with dep
 🔄 Cross-device synchronization for enrollment and verification.
 
 🖥️ Intuitive Graphical User Interface (GUI) for enrollment and verification management.
-Conclusion:-
 
-This internship project represents a significant technological achievement, wherein a cutting-edge, fully functional personalized AI voice assistant was developed leveraging deep learning and open-source speech technologies. It demonstrates the feasibility and practical workflow of biometric voice authentication for secure user interactions. The project stands as a strong foundation for building more advanced, user-friendly voice-driven AI systems.
+📥 Installation & Setup Instructions
+
+Required Libraries: pip install torch torchaudio speechbrain silero-vad sounddevice numpy resemblyzer
+
+Models Used : 
+  1. Speaker Verification Model: spkrec-ecapa-voxceleb pretrained model from SpeechBrain (based on ECAPA-TDNN architecture).
+  2. Voice Activity Detection (VAD) Model: Silero VAD pretrained model for speech segmentation.
+
+How to Download and Use the Models : 
+
+Download the spkrec-ecapa-voxceleb Model:
+The pretrained model is hosted on the SpeechBrain official model hub and can be loaded directly in your code as follows:
+<img width="863" height="217" alt="image" src="https://github.com/user-attachments/assets/ddd0baf1-8c65-4f00-8671-bc72df602929" />
+
+Download and Use Silero VAD Model:
+You can download the Silero VAD model using torch.hub API:
+<img width="833" height="266" alt="image" src="https://github.com/user-attachments/assets/b2a360ff-8b8f-4359-a9ee-fc2ef00b70ef" />
+This loads the VAD model along with utility functions for speech timestamp detection.
+
+🎯 Conclusion
+This internship project represents a significant technological achievement in developing a fully functional personalized AI voice assistant using deep learning and open-source speech technologies. It showcases a practical, secure voice biometric authentication workflow, laying a strong foundation for advanced, user-friendly voice-driven AI systems.
