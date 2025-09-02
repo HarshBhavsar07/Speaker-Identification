@@ -83,7 +83,7 @@ False Rejection Rate (FRR): Percentage of authorized speakers incorrectly reject
 
 Equal Error Rate (EER): Balanced accuracy measure between FAR and FRR.
 
-Results show promising accuracy between 90-96%, depending on testing conditions. Continuous live verification logs assist in iterative tuning and threshold refinement.
+Results show promising accuracy between 90% and 96%, depending on the testing conditions. Continuous live verification logs assist in iterative tuning and threshold refinement.
 
 🌟 Personal Learnings and Contributions
 Gained deep expertise in speaker recognition, embedding generation, and verification methods.
@@ -123,11 +123,11 @@ How to Download and Use the Models :
 
 Download the spkrec-ecapa-voxceleb Model:
 The pretrained model is hosted on the SpeechBrain official model hub and can be loaded directly in your code as follows:
-<img width="863" height="217" alt="image" src="https://github.com/user-attachments/assets/ddd0baf1-8c65-4f00-8671-bc72df602929" />
+<img width="861" height="147" alt="image" src="https://github.com/user-attachments/assets/7440b969-655c-4612-8c7c-0ee5bb4c6b65" />
 
 Download and Use Silero VAD Model:
 You can download the Silero VAD model using torch.hub API:
-<img width="833" height="266" alt="image" src="https://github.com/user-attachments/assets/b2a360ff-8b8f-4359-a9ee-fc2ef00b70ef" />
+<img width="766" height="216" alt="image" src="https://github.com/user-attachments/assets/85af8ae6-10b4-43f7-819e-7b1313a7eb04" />
 This loads the VAD model along with utility functions for speech timestamp detection.
 
 🎯 Conclusion
