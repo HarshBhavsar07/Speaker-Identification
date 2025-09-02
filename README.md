@@ -1,6 +1,3 @@
-# Speaker-Identification
-Oizom Internship
-
 🎙️ Personalized AI Voice Assistant Project
 💼 Internship at Oizom — Deep Dive Overview
 
@@ -53,7 +50,7 @@ Continuous Recognition Loop
 🎯 Ensures stable verification by requiring consecutive positive matches before allowing interaction.
 
 🧰 Technologies & Libraries Used
-SpeechBrain: Open-source speech tech framework providing the spkrec-ecapa-voxceleb pretrained model.
+SpeechBrain: Open-source speech technology framework providing the spkrec-ecapa-voxceleb pretrained model.
 
 Silero Voice Activity Detector: Precise and efficient speech segment detection.
 
@@ -112,10 +109,6 @@ Experienced collaborative development in a product-oriented environment with dep
 🔄 Cross-device synchronization for enrollment and verification.
 
 🖥️ Intuitive Graphical User Interface (GUI) for enrollment and verification management.
-
-🎯 Conclusion
-This internship project represents a significant technological achievement in developing a fully functional personalized AI voice assistant using deep learning and open-source speech technologies. It showcases a practical, secure voice biometric authentication workflow, laying a strong foundation for advanced, user-friendly voice-driven AI systems.
-
 Conclusion:-
 
 This internship project represents a significant technological achievement, wherein a cutting-edge, fully functional personalized AI voice assistant was developed leveraging deep learning and open-source speech technologies. It demonstrates the feasibility and practical workflow of biometric voice authentication for secure user interactions. The project stands as a strong foundation for building more advanced, user-friendly voice-driven AI systems.
