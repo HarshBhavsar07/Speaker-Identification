@@ -1,0 +1,7 @@
+torch 
+torchaudio 
+speechbrain 
+silero-vad 
+sounddevice 
+numpy 
+resemblyzer
