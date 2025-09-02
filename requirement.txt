@@ -5,3 +5,4 @@ silero-vad
 sounddevice 
 numpy 
 resemblyzer
+
