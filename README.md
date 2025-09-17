@@ -1,134 +1,131 @@
-🎙️ Personalized AI Voice Assistant Project
+Speaker-Identification — Personalized AI Voice Assistant
 
-💼 Internship at Oizom — Deep Dive Overview
+A production-style implementation of a personalized AI voice assistant built during an internship at Oizom, featuring secure, real-time speaker verification using ECAPA-TDNN embeddings from the SpeechBrain spkrec-ecapa-voxceleb model and precise voice activity detection via Silero VAD. The system enrolls a primary user, extracts robust speaker embeddings, and verifies identity continuously during live interactions for a secure, user-exclusive experience.
 
-🚀 Introduction
-This project was developed during an enriching internship at Oizom, where the core task was to build a Personalized AI Voice Assistant that securely recognizes and responds only to its enrolled primary user. At its heart lies a cutting-edge speaker verification system utilizing the advanced spkrec-ecapa-voxceleb pretrained neural model. The system captures a brief voice sample during enrollment, extracts unique speaker embeddings, and continuously monitors live speech inputs to verify identity in real-time, ensuring a secure and personalized interaction experience.
+Introduction
 
-This repository implements a state-of-the-art voice assistant leveraging deep learning models for secure and robust speaker verification. It integrates the SpeechBrain framework’s spkrec-ecapa-voxceleb model—based on the powerful ECAPA-TDNN architecture trained on VoxCeleb datasets—to extract highly discriminative speaker embeddings for accurate biometric verification.
+This repository implements a speaker verification–driven assistant that recognizes and responds exclusively to the enrolled primary user, combining deep learning–based speaker embeddings with reliable VAD-driven speech segmentation. It integrates SpeechBrain’s spkrec-ecapa-voxceleb model—an ECAPA-TDNN architecture trained on VoxCeleb—to compute discriminative embeddings, and Silero VAD for fast, accurate speech/non-speech separation, enabling low-latency, high-accuracy verification in realistic environments.
 
-For precise and efficient detection of speech, it uses the Silero VAD model, delivering fast and reliable segmentation by filtering speech from silence and noise across diverse audio conditions. Together, these models enable capturing short enrollment samples, clean embedding extraction, and continuous real-time verification with low latency and high accuracy.
+Problem statement
 
-This combination ensures the AI assistant responds exclusively to the enrolled primary user, providing a secure and personalized experience. The repository offers modular components for enrollment, embedding extraction, live microphone streaming, similarity-based verification, and decision logic, forming a comprehensive toolkit for speaker verification-driven applications.
+Conventional voice assistants risk responding to unintended speakers or background audio, affecting security and usability. This project embeds voice biometrics into the assistant to:
 
-🛠️ Problem Statement
-Traditional voice assistants often lack robust speaker identity verification, potentially responding to unauthorized users or background noise, raising security and usability concerns. This project addresses these by building a voice biometric system embedded within an AI assistant that:
+Reliably identify the enrolled user from a short enrollment sample.
 
-🔐 Reliably identifies the enrolled user’s voice through a short enrollment session.
+Continuously verify identity during live interactions.
 
-🔄 Continuously verifies the speaker identity during live interaction.
+Filter out non-enrolled voices and accidental audio.
 
-⛔ Filters out voices or commands from non-enrolled users.
+Operate in real time with short, fluent recordings.
 
-⚡ Operates efficiently with short recordings suitable for real-time use.
+System architecture
 
-🧩 System Architecture
-Enrollment Module
-🎤 Audio Capture: Records 5 seconds of voice input to register the user’s voice profile.
+Enrollment module
 
-🔊 Voice Activity Detection (VAD): Uses Silero VAD to isolate fluent speech segments from raw audio.
+Audio capture: Record ~5 seconds to establish a voice profile.
 
-🎯 Speaker Embedding Extraction: Processes cleaned speech with spkrec-ecapa-voxceleb (SpeechBrain) to create fixed-dimensional embeddings uniquely characterizing the speaker.
+Voice activity detection: Use Silero VAD to isolate fluent speech segments.
 
-💾 Data Persistence: Saves raw audio and embeddings locally for seamless subsequent verification without repeated enrollment.
+Embedding extraction: Generate fixed-length ECAPA-TDNN embeddings via spkrec-ecapa-voxceleb.
 
-Verification Module
-🎧 Audio Stream Listening: Continuously monitors live microphone input in overlapping 3-second chunks.
+Persistence: Store raw audio and embeddings for subsequent verification.
 
-🗣️ Speech Segmentation: Applies VAD to isolate intentional speech.
+Verification module
 
-🧠 Embedding Extraction: Computes embeddings on-the-fly from these speech chunks.
+Stream listening: Monitor microphone input in overlapping windows.
 
-✔️ Similarity Computation: Uses cosine similarity between live embeddings and enrolled embeddings.
+Speech segmentation: Apply VAD to extract intentional speech.
 
-🚦 Decision Logic: Verifies speaker if similarity exceeds threshold (e.g., 0.6); otherwise, restricts microphone usage.
+On-the-fly embeddings: Compute embeddings for each speech chunk.
 
-Continuous Recognition Loop
-🔄 Implements streaming audio buffering with thread-safe queues for real-time, always-on experience.
+Similarity and decisioning: Use cosine similarity against enrolled embedding; accept above threshold.
 
-⚙️ Executes fast verification in background threads to minimize latency.
+Continuous loop
 
-🎯 Ensures stable verification by requiring consecutive positive matches before allowing interaction.
+Streaming buffers with thread-safe queues for always-on behavior.
 
-🧰 Technologies & Libraries Used
-SpeechBrain: Open-source speech technology framework providing the spkrec-ecapa-voxceleb pretrained model.
+Low-latency background verification via multithreading.
 
-Silero Voice Activity Detector: Precise and efficient speech segment detection.
+Stability via consecutive positive matches before enabling interaction.
 
-SoundDevice: Real-time audio recording and streaming.
+Technologies and libraries
 
-TorchAudio: Audio processing utilities for loading, resampling, and waveform tensor manipulation.
+SpeechBrain spkrec-ecapa-voxceleb (ECAPA-TDNN; VoxCeleb-trained) for speaker embeddings.
 
-NumPy: Numerical computation and data handling.
+Silero VAD for high-performance speech detection via torch.hub or pip.
 
-PyTorch: Deep learning framework powering neural network models.
+PyTorch/Torchaudio for modeling and audio processing.
 
-Resemblyzer: Auxiliary embeddings extraction for comparative analysis.
+NumPy for numerical operations.
 
-⚙️ Design Decisions & Challenges
-⏱️ Short Enrollment Duration: 5 seconds recording balances user convenience and embedding quality; at least 3 seconds of fluent speech ensures robustness.
+SoundDevice for real-time audio I/O.
 
-🎚️ Threshold Fine-Tuning: Critical cosine similarity threshold calibrated to balance false acceptances and rejections.
+Resemblyzer for auxiliary comparisons and analysis.
 
-🔄 Real-Time Processing: Achieved low latency with smart buffer management, multithreading, and asynchronous audio capture.
+Design decisions and challenges
 
-🔇 Noise & Variability Handling: Advanced VAD models maintain embedding quality amid diverse acoustic environments.
+Short enrollment (≈5 seconds): Balances convenience and embedding quality; ≥3 seconds fluent speech recommended.
 
-🏗️ Integration Complexity: Seamlessly coordinated audio I/O, VAD, embedding models, and similarity computations within a real-time pipeline.
+Threshold tuning: Calibrate cosine similarity to balance FAR/FRR and minimize errors.
 
-📊 Performance Evaluation
-False Acceptance Rate (FAR): Percentage of unauthorized speakers incorrectly accepted.
+Real-time pipeline: Buffered streaming and multithreading to reduce verification latency.
 
-False Rejection Rate (FRR): Percentage of authorized speakers incorrectly rejected.
+Noise robustness: VAD pre-filtering preserves embedding integrity in varied conditions.
 
-Equal Error Rate (EER): Balanced accuracy measure between FAR and FRR.
+Integration: Coordinating audio I/O, VAD, embeddings, and similarity within a tight loop.
 
-Results show promising accuracy between 90% and 96%, depending on the testing conditions. Continuous live verification logs assist in iterative tuning and threshold refinement.
+Performance evaluation
 
-🌟 Personal Learnings and Contributions
-Gained deep expertise in speaker recognition, embedding generation, and verification methods.
+FAR: Rate of unauthorized users accepted.
 
-Familiarized with state-of-the-art pretrained models and adapted them for real-world use.
+FRR: Rate of authorized users rejected.
 
-Enhanced skills in audio signal processing, streaming, voice activity detection, and buffer management.
+EER: Balance point of FAR and FRR; ECAPA-TDNN models achieve low EER on VoxCeleb benchmarks.
+Observed accuracy ranges between ~90% and 96% depending on conditions; iterative logs aid threshold and pipeline refinement.
 
-Developed end-to-end biometric security voice assistant pipelines.
+Personal learnings and contributions
 
-Strengthened debugging and optimization of multithreaded audio applications.
+Advanced speaker recognition: Embedding generation, scoring, and verification workflows.
 
-Experienced collaborative development in a product-oriented environment with deployment-ready code.
+Model integration: Practical use of ECAPA-TDNN with SpeechBrain and VAD pre-processing.
 
-🚀 Future Extensions
-👥 Multi-user enrollment with speaker ID classification.
+Audio engineering: Streaming, segmentation, buffering, and concurrency for low-latency UX.
 
-⚙️ Adaptive thresholding based on environmental noise.
+End-to-end security pipeline: From enrollment to decision logic for biometric access control.
 
-🔐 Text-dependent verification using passphrases.
+Production-minded debugging: Multithreaded optimization and stability improvements.
 
-🎙️ Integration with Automatic Speech Recognition (ASR) for personalized command processing.
+Future extensions
 
-🔄 Cross-device synchronization for enrollment and verification.
+Multi-user enrollment with speaker ID classification.
 
-🖥️ Intuitive Graphical User Interface (GUI) for enrollment and verification management.
+Adaptive thresholds responsive to environmental noise.
 
-📥 Installation & Setup Instructions
+Text-dependent verification via passphrases.
 
-Required Libraries: pip install torch torchaudio speechbrain silero-vad sounddevice numpy resemblyzer
+ASR integration for personalized command understanding.
 
-Models Used : 
-  1. Speaker Verification Model: spkrec-ecapa-voxceleb pretrained model from SpeechBrain (based on ECAPA-TDNN architecture).
-  2. Voice Activity Detection (VAD) Model: Silero VAD pretrained model for speech segmentation.
+Cross-device enrollment sync.
 
-How to Download and Use the Models : 
+GUI for intuitive enrollment and verification management.
 
-Download the spkrec-ecapa-voxceleb Model:
-The pretrained model is hosted on the SpeechBrain official model hub and can be loaded directly in your code as follows:
-<img width="861" height="147" alt="image" src="https://github.com/user-attachments/assets/7440b969-655c-4612-8c7c-0ee5bb4c6b65" />
+Installation and setup
 
-Download and Use Silero VAD Model:
-You can download the Silero VAD model using torch.hub API:
-<img width="766" height="216" alt="image" src="https://github.com/user-attachments/assets/85af8ae6-10b4-43f7-819e-7b1313a7eb04" />
-This loads the VAD model along with utility functions for speech timestamp detection.
+Install core libraries:
+pip install torch torchaudio speechbrain silero-vad sounddevice numpy resemblyzer
 
-🎯 Conclusion
-This internship project represents a significant technological achievement in developing a fully functional personalized AI voice assistant using deep learning and open-source speech technologies. It showcases a practical, secure voice biometric authentication workflow, laying a strong foundation for advanced, user-friendly voice-driven AI systems.
+Models used:
+
+Speaker verification: SpeechBrain spkrec-ecapa-voxceleb (ECAPA-TDNN, VoxCeleb).
+
+Voice activity detection: Silero VAD for speech timestamps.
+
+How to load models in code:
+
+SpeechBrain speaker verification: Load from Hugging Face model hub; compute embeddings and cosine similarity for verification.
+
+Silero VAD: Load via torch.hub and extract speech timestamps, or install via pip.
+
+Conclusion
+
+This internship project delivers a fully functional, speaker verification–powered AI assistant using modern speech technologies, demonstrating a practical, secure voice-biometric workflow that is extensible to multi-user, text-dependent, and ASR-integrated scenarios.
